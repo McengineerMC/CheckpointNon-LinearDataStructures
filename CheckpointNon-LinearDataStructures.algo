@@ -1,0 +1,94 @@
+BT :  STRUCT
+           VAL : data; // any type of data
+           LC : ^BT; // a pointer to left child
+           RC : ^BT; // a pointer to right child
+      END_STRUCT
+
+
+//Write a function that gives the number of nodes in the tree
+FUNCTION numbernode(root : ^BT) : INTEGER
+VAR
+    num : INTEGER;
+BEGIN
+    IF (root = NULL) THEN
+        num := 0;
+    ELSE 
+        num := 1 + numbernode(root^.LC) + numbernode(root^.RC);
+    END_IF
+    RETURN num;
+END
+
+
+
+//Write a function that gives the height of a tree
+FUNCTION heighttree(root : ^BT) : INTEGER
+VAR
+    h : INTEGER;
+BEGIN
+    IF (root = NULL) THEN
+        h := 0;
+    ELSE 
+        h = 1 + Math.max (heighttree(root^.LC),heighttree(root^.RC));
+    END_IF
+    RETURN h;
+END
+
+
+
+//Write a function that gives the number of leaves in the tree
+FUNCTION nbrleaves(root : ^BT) : INTEGER
+VAR
+    lea : INTEGER;
+BEGIN        
+IF (root = NULL) THEN
+    lea := 0;
+END_IF
+IF (root^.Lc = NULL and root^.Rc =NULL) THEN
+    lea := 1;
+ELSE
+    lea := nbrleaves(root^.Lc)+nbrleaves(root^.Lc);
+END_IF
+    RETURN lea;
+END
+
+
+
+//Write a function that gives the maximum value in the tree
+FUNCTION maxvalue(root : ^BT) : INTEGER
+VAR
+    m,res: INTEGER;
+BEGIN        
+IF (root = NULL) THEN
+        res := 0;
+ELSE
+    m:= root^.VAL;
+END_IF
+     ml := maxvalue(root^.LC)
+     mr := maxvalue(root^.RC)
+
+
+res := Math.max(ml,mr,m);
+    RETURN res;
+END
+
+
+
+//Write a function to test if the tree is a full binary tree
+FUNCTION fullbinarytree(root : ^BT) : BOOLEAN
+VAR
+    state : BOOLEAN;
+BEGIN
+//empty tree
+IF (root = NULL) THEN
+        state:=true;
+//leafe node
+ELSE_IF (root^.LC = NULL and root^.LC = NULL) THEN
+        state:=true;
+//left and right node not null
+ELSE_IF (fullbinarytree(root^.LC) and fullbinarytree(root^.RC)) THEN
+        state:=true;
+ELSE
+        state:=false;
+END_IF
+RETURN state;
+END
